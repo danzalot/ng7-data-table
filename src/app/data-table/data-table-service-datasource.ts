@@ -4,20 +4,15 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface DataTableItem {
-  name: string;
-  id: number;
-  placeholder: string;
-}
 
+export interface DataTableItem {
+  id: number;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: DataTableItem[] = [
-  { id:1, name: 'obi', placeholder: '(modify me)' },
-  { id:2, name: 'jolans', placeholder: '(modify me)' },
-  { id:3, name: 'princess', placeholder: '(modify me)' },
-  { id:4, name: 'shaishai', placeholder: '(modify me)' },
-  { id:5, name: 'eds', placeholder: '(modify me)' }
-];
+const EXAMPLE_DATA: DataTableItem[] = [];
 
 /**
  * Data source for the DataTable view. This class should
@@ -80,9 +75,10 @@ export class DataTableServiceDataSource extends DataSource<DataTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        
         case 'id': return compare(+a.id, +b.id, isAsc);
-        case 'placeholder': return compare(a.placeholder, b.placeholder, isAsc);
+        case 'first_name': return compare(a.first_name, b.first_name, isAsc);
+        case 'last_name': return compare(a.last_name, b.last_name, isAsc);
         default: return 0;
       }
     });

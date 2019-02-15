@@ -2,6 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 //import { DataTableDataSource } from './data-table-datasource';
 import { DataTableServiceDataSource } from './data-table-service-datasource';
+import { DataService } from '../data.service';
+
+export interface DataTableItem {
+  id: number;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
 
 @Component({
   selector: 'app-data-table',
@@ -14,9 +22,24 @@ export class DataTableComponent implements OnInit {
   dataSource: DataTableServiceDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'placeholder'];
+  displayedColumns = ['id','first_name', 'last_name', 'avatar'];
+  
+  constructor(private dataFromService: DataService) { }
 
   ngOnInit() {
-    this.dataSource = new DataTableServiceDataSource(this.paginator, this.sort);
+   
+    
+    this.dataFromService.getUsers().subscribe(response => {
+      var JSONresponse = [] as Array<DataTableItem>;
+      for(var el in response['data']){
+         //console.log(el);
+         JSONresponse.push(response['data'][el]);
+      }
+      this.dataSource = new DataTableServiceDataSource(this.paginator, this.sort);
+      this.dataSource.data = JSONresponse;
+
+    });
+    
+     
   }
 }
