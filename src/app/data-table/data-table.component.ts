@@ -3,13 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 //import { DataTableDataSource } from './data-table-datasource';
 import { DataTableServiceDataSource } from './data-table-service-datasource';
 import { DataService } from '../data.service';
-
-export interface DataTableItem {
-  id: number;
-  first_name: string;
-  last_name: string;
-  avatar: string;
-}
+import { DataTableItem} from '../data-table/data-table-service-datasource';
 
 @Component({
   selector: 'app-data-table',
