@@ -1,4 +1,8 @@
+
 <div class="mat-elevation-z8">
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
   <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
   
     <ng-container matColumnDef="id">
@@ -18,7 +22,7 @@
 
     <ng-container matColumnDef="avatar">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Link</th>
-      <td mat-cell *matCellDef="let row">{{row.avatar}}</td>
+      <td mat-cell *matCellDef="let row">{{row.avatar}}"/>}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -26,9 +30,10 @@
   </table>
 
   <mat-paginator #paginator
-      [length]="dataSource.data.length"
-      [pageIndex]="0"
-      [pageSize]="50"
-      [pageSizeOptions]="[25, 50, 100, 250]">
+      [length]="dataSource.total"
+      [pageIndex]="dataSource.pageNumber"
+      [pageSize]="3"
+      [pageSizeOptions]="[3, 5, 10]">
   </mat-paginator>
+
 </div>
